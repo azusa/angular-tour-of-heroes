@@ -11,6 +11,9 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { InMemoryDataService } from './in-memory-data.service';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule }  from 'angular-in-memory-web-api';
 
 
 @NgModule({
@@ -24,9 +27,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false} 
+    )
   ],
-  providers: [HeroService, MessageService],
+  providers: [HeroService, MessageService, InMemoryDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
