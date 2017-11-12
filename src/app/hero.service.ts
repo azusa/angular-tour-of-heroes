@@ -19,6 +19,7 @@ export class HeroService {
     this.messageService.add('HeroService: fetched heroes');
     return this.http.get<Hero[]>(this.heroesUrl)
       .pipe(
+        tap(heroes => this.log(`fetched heroes`)),
         catchError(this.handleError('getHeroes',[]))
       );
   }
@@ -33,9 +34,10 @@ export class HeroService {
       console.error(error);
       this.log(`${operation} failed: ${error.message} `);
       return of (result as T);
+    };
   }
 
-  private log(message: string){
+  private log(message: string) {
     this.messageService.add('HttpService:' + message);
   }
 
